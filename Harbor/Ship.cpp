@@ -10,10 +10,16 @@ void Ship::create(int flag)
 	string tmp;
 
 	cout << "1. Ship type: ";
-	if (flag == 0)
+	if (flag == 1)
+	{
+		data.type = "Civil";
 		cout << "Civil\n";
+	}
 	else
+	{
+		data.type = "Warship";
 		cout << "Warship\n";
+	}
 
 	do
 	{
@@ -111,7 +117,7 @@ void Ship::set_data(Data d)
 	data.type = d.type;
 }
 
-Data Ship::get_data()
+Data Ship::get_data() const
 {
 	return data;
 }

@@ -24,5 +24,5 @@ public:
 	virtual ~Ship() {};
 	void create(int flag);
 	void set_data(struct Data); // Set data from file
-	Data get_data();
+	Data get_data() const;
 };

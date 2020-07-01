@@ -34,7 +34,7 @@ void Harbor::show()
 	}
 }
 
-std::list<Ship*> Harbor::get_ships()
+std::list<Ship *> Harbor::get_ships()
 {
 	return ships;
 }

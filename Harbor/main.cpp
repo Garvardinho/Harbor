@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <exception>
+#include <algorithm>
 #include <list>
 #include <string>
 #include "Harbor.h"
@@ -12,6 +13,11 @@ using namespace std;
 Harbor read_from_file(int);
 void write_to_file(Harbor);
 int main_menu();
+
+bool str_cmp(Data d1, Data d2)
+{
+	return d1.type > d2.type;
+}
 
 int main()
 {
@@ -30,7 +36,7 @@ int main()
 		{
 		case 1:
 			system("cls");
-			cout << "How much ships do you want to add?";
+			cout << "How much ships do you want to add?\n";
 
 			while (true) // Check for correct input
 			{
@@ -54,7 +60,7 @@ int main()
 					getline(cin, tmp);
 					ship_type = atoi(tmp.c_str());
 					if (num_valid(tmp))
-						if (ship_type == 1 || menu == 2)
+						if (ship_type == 1 || ship_type == 2)
 							break;
 				}
 
@@ -72,7 +78,7 @@ int main()
 
 		case 3:
 			system("cls");
-			cout << "How much ships do you want to read from file?";
+			cout << "How much ships do you want to read from file?\n";
 
 			while (true)
 			{
@@ -84,12 +90,12 @@ int main()
 						break;
 			}
 
-			read_from_file(num);
+			h = read_from_file(num);
 			break;
-
 		}
 	}
 
+	write_to_file(h);
 	return 0;
 }
 
@@ -148,7 +154,7 @@ Harbor read_from_file(int num)
 				if (pos = tmp.find("Ship type: ") != 0)
 					throw exception("There is an error in file\n");
 
-				data.type = tmp.substr(12);
+				data.type = tmp.substr(11);
 				if (data.type != "Warship" && data.type != "Civil")
 					throw exception("There is a ship type error in file");
 				break;
@@ -157,42 +163,42 @@ Harbor read_from_file(int num)
 				if (pos = tmp.find("Ship class: ") != 0)
 					throw exception("There is an error in file\n");
 
-				data.ship_class = tmp.substr(13);
+				data.ship_class = tmp.substr(12);
 				break;
 
 			case 3:
 				if (pos = tmp.find("Specialty: ") != 0)
 					throw exception("There is an error in file\n");
 
-				data.specialty = tmp.substr(12);
+				data.specialty = tmp.substr(11);
 				break;
 
 			case 4:
 				if (pos = tmp.find("Size: ") != 0)
 					throw exception("There is an error in file\n");
 
-				data.size = tmp.substr(7);
+				data.size = tmp.substr(6);
 				break;
 
 			case 5:
 				if (pos = tmp.find("Area: ") != 0)
 					throw exception("There is an error in file\n");
 
-				data.area = tmp.substr(7);
+				data.area = tmp.substr(6);
 				break;
 
 			case 6:
 				if (pos = tmp.find("Power type: ") != 0)
 					throw exception("There is an error in file\n");
 
-				data.power_type = tmp.substr(13);
+				data.power_type = tmp.substr(12);
 				break;
 
 			case 7:
 				if (pos = tmp.find("Displacement: ") != 0)
 					throw exception("There is an error in file\n");
 
-				tmp = tmp.substr(15);
+				tmp = tmp.substr(14);
 				if (!num_valid(tmp))
 					throw exception("There is an error in file\n");
 
@@ -205,19 +211,20 @@ Harbor read_from_file(int num)
 				if (pos = tmp.find("Capacity: ") != 0)
 					throw exception("There is an error in file\n");
 
-				tmp = tmp.substr(11);
+				tmp = tmp.substr(10);
 				if (!num_valid(tmp))
 					throw exception("There is an error in file\n");
 
 				data.capacity = atoi(tmp.c_str());
-				throw exception("There is a capacity error in file\n");
+				if (data.capacity < 0)
+					throw exception("There is a capacity error in file\n");
 				break;
 
 			case 9:
 				if (pos = tmp.find("Crew: ") != 0)
 					throw exception("There is an error in file\n");
 
-				tmp = tmp.substr(7);
+				tmp = tmp.substr(6);
 				if (!num_valid(tmp))
 					throw exception("There is an error in file\n");
 
@@ -230,7 +237,7 @@ Harbor read_from_file(int num)
 				if (pos = tmp.find("Passengers: ") != 0)
 					throw exception("There is an error in file\n");
 
-				tmp = tmp.substr(13);
+				tmp = tmp.substr(12);
 				if (!num_valid(tmp))
 					throw exception("There is an error in file\n");
 
@@ -243,7 +250,7 @@ Harbor read_from_file(int num)
 				if (pos = tmp.find("Speed: ") != 0)
 					throw exception("There is an error in file\n");
 
-				tmp = tmp.substr(8);
+				tmp = tmp.substr(7);
 				if (!num_valid(tmp))
 					throw exception("There is an error in file\n");
 
@@ -252,23 +259,23 @@ Harbor read_from_file(int num)
 					throw exception("There is a speed error in file\n");
 				break;
 
-
-				if (flag == 11)
-				{
-					cout << endl;
-					flag = 0; // Zero because of increment below
-					h.setData(data);
-				}
-
-				flag++;
 			}
 
-			num--;
+			if (flag == 11)
+			{
+				cout << endl;
+				flag = 0; // Zero because of increment below
+				h.setData(data);
+				num--;
+			}
+
+			flag++;
 		}
 	}
 	catch (exception &ex)
 	{
 		cout << ex.what() << endl;
+		getchar();
 	}
 
 	in.close();
@@ -280,9 +287,12 @@ void write_to_file(Harbor h)
 {
 	ofstream out;
 	Data d;
-	list<Ship*> l = h.get_ships();
+	list<Ship *> l = h.get_ships();
 
-	l.sort();
+	l.sort([](const Ship *s1, const Ship *s2) 
+	{
+		return s1->get_data().type < s2->get_data().type;
+	});
 
 	try
 	{
