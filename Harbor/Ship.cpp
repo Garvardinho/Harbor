@@ -5,53 +5,53 @@
 
 using namespace std;
 
-void Ship::create()
+void Ship::create(int flag)
 {
 	string tmp;
 
-	do // Hereinafter - check for empty string
-	{
-		cout << "1. Ship type: ";
-		getline(cin, type);
-	} while (!str_valid(type));
+	cout << "1. Ship type: ";
+	if (flag == 0)
+		cout << "Civil\n";
+	else
+		cout << "Warship\n";
 
 	do
 	{
 		cout << "2. Ship class: ";
-		getline(cin, ship_class);
-	} while (!str_valid(ship_class));
+		getline(cin, data.ship_class);
+	} while (!str_valid(data.ship_class));
 
 	do
 	{
 		cout << "3. Specialty: ";
-		getline(cin, type);
-	} while (!str_valid(type));
+		getline(cin, data.specialty);
+	} while (!str_valid(data.specialty));
 
 	do
 	{
 		cout << "4. Size: ";
-		getline(cin, type);
-	} while (!str_valid(type));
+		getline(cin, data.size);
+	} while (!str_valid(data.size));
 
 	do
 	{
 		cout << "5. Area: ";
-		getline(cin, type);
-	} while (!str_valid(type));
+		getline(cin, data.area);
+	} while (!str_valid(data.area));
 
 	do
 	{
 		cout << "6. Power type: ";
-		getline(cin, type);
-	} while (!str_valid(type));
+		getline(cin, data.power_type);
+	} while (!str_valid(data.power_type));
 
 	while (true) // Check for correct input
 	{
 		cout << "7. Displacement: ";
 		getline(cin, tmp);
-		displacement = atoi(tmp.c_str());
+		data.displacement = atoi(tmp.c_str());
 		if (num_valid(tmp)) // If string-num check passed
-			if (displacement > 0) // If data are reasonable
+			if (data.displacement > 0) // If data are reasonable
 				break;
 	}
 
@@ -59,9 +59,9 @@ void Ship::create()
 	{
 		cout << "8. Capacity: ";
 		getline(cin, tmp);
-		capacity = atoi(tmp.c_str());
+		data.capacity = atoi(tmp.c_str());
 		if (num_valid(tmp))
-			if (capacity > 0)
+			if (data.capacity > 0)
 				break;
 	}
 
@@ -69,9 +69,9 @@ void Ship::create()
 	{
 		cout << "9. Crew: ";
 		getline(cin, tmp);
-		crew = atoi(tmp.c_str());
+		data.crew = atoi(tmp.c_str());
 		if (num_valid(tmp))
-			if (crew > 0)
+			if (data.crew > 0)
 				break;
 	}
 
@@ -79,9 +79,9 @@ void Ship::create()
 	{
 		cout << "10. Passengers: ";
 		getline(cin, tmp);
-		passengers = atoi(tmp.c_str());
+		data.passengers = atoi(tmp.c_str());
 		if (num_valid(tmp))
-			if (passengers > 0)
+			if (data.passengers > 0)
 				break;
 	}
 
@@ -89,9 +89,29 @@ void Ship::create()
 	{
 		cout << "11. Speed: ";
 		getline(cin, tmp);
-		speed = atoi(tmp.c_str());
+		data.speed = atoi(tmp.c_str());
 		if (num_valid(tmp))
-			if (speed > 0)
+			if (data.speed > 0)
 				break;
 	}
+}
+
+void Ship::set_data(Data d)
+{
+	data.area = d.area;
+	data.capacity = d.capacity;
+	data.crew = d.crew;
+	data.displacement = d.displacement;
+	data.passengers = d.passengers;
+	data.power_type = d.power_type;
+	data.ship_class = d.ship_class;
+	data.size = d.size;
+	data.specialty = d.specialty;
+	data.speed = d.speed;
+	data.type = d.type;
+}
+
+Data Ship::get_data()
+{
+	return data;
 }

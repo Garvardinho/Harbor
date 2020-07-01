@@ -1,0 +1,12 @@
+Ship type: Warship
+Ship class: 5
+Specialty: Qww
+Size: 122 x 52 x 62
+Area: SPb
+Power type: Nuclear
+Displacement: 4545400
+Capacity: 5589000
+Crew: 600
+Passengers: 5600
+Speed: 63
+

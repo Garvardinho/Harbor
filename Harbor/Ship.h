@@ -1,9 +1,8 @@
 #pragma once
 #include <iostream>
 
-class Ship
+struct Data
 {
-protected:
 	std::string type;
 	std::string ship_class;
 	std::string specialty;
@@ -15,9 +14,15 @@ protected:
 	int crew;
 	int passengers;
 	int speed;
+};
 
+class Ship
+{
+protected:
+	Data data;
 public:
-	void create();
 	virtual ~Ship() {};
-	virtual std::string note() const = 0;
+	void create(int flag);
+	void set_data(struct Data); // Set data from file
+	Data get_data();
 };

@@ -1,11 +1,9 @@
 #include "Warship.h"
 
-Warship::Warship()
+Warship::Warship(int flag, Data *d)
 {
-	create();
-}
-
-std::string Warship::note() const
-{
-	return "Warship";
+	if (flag == 0)
+		create(2);
+	else
+		set_data(*d);
 }

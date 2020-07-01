@@ -4,6 +4,6 @@
 class Factory
 {
 public:
-	virtual Ship *createCivil() const = 0;
-	virtual Ship *createWarship() const = 0;
+	virtual void create_civil() = 0;
+	virtual void create_warship() = 0;
 };

@@ -1,13 +1,9 @@
 #include "Civil.h"
 
-using namespace std;
-
-Civil::Civil()
+Civil::Civil(int flag, Data *d)
 {
-	create();
-}
-
-std::string Civil::note() const
-{
-	return "Civil ship";
+	if (flag == 0)
+		create(1);
+	else
+		set_data(*d);
 }

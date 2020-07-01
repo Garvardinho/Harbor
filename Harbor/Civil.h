@@ -4,6 +4,5 @@
 class Civil : public Ship
 {
 public:
-	Civil();
-	std::string note() const override;
+	Civil(int, Data *d=nullptr);
 };
