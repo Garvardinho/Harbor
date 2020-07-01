@@ -4,5 +4,6 @@
 class Warship : public Ship
 {
 public:
+	Warship();
 	std::string note() const override;
 };

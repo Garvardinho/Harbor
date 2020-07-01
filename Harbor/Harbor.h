@@ -1,9 +1,9 @@
 #pragma once
-#include "Ship.h"
+#include "Factory.h"
 
-class Harbor
+class Harbor : public Factory
 {
 public:
-	virtual Ship *createCivil() const = 0;
-	virtual Ship *createWarship() const = 0;
+	Ship *createCivil() const override;
+	Ship *createWarship() const override;
 };

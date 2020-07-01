@@ -3,7 +3,7 @@
 
 class Ship
 {
-private:
+protected:
 	std::string type;
 	std::string ship_class;
 	std::string specialty;
@@ -17,6 +17,7 @@ private:
 	int speed;
 
 public:
+	void create();
 	virtual ~Ship() {};
 	virtual std::string note() const = 0;
 };

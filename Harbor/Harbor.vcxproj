@@ -116,14 +116,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Civil.h" />
-    <ClInclude Include="Factory.h" />
     <ClInclude Include="Harbor.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="Valid.h" />
     <ClInclude Include="Warship.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Civil.cpp" />
-    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Harbor.cpp" />
+    <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Valid.cpp" />
     <ClCompile Include="Warship.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
